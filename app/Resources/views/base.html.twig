@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="">
+        <meta name="author" content="">
+        <title>{% block title %}{% trans %}Welcome!{% endtrans %} Hometalent.ch - Entraide à Genève{% endblock %}</title>
+        {% block stylesheets %}
+        <!-- Bootstrap Core CSS -->
+        <link href="{{ asset('vendor/bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
+
+        <!-- Custom Fonts -->
+        <link href="{{ asset('vendor/font-awesome/css/font-awesome.min.css') }}" rel="stylesheet" type="text/css">
+        <link href='//fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Merriweather:400,300,300italic,400italic,700,700italic,900,900italic' rel='stylesheet' type='text/css'>
+
+        <!-- Plugin CSS -->
+        <link href="{{ asset('vendor/magnific-popup/magnific-popup.css') }}" rel="stylesheet">
+
+        <!-- Theme CSS -->
+        <link href="{{ asset('css/creative.min.css') }}" rel="stylesheet">
+        <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.0/css/bootstrap-select.min.css">
+
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+            <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+            <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <style>
+            .services-list li {
+                list-style: none;
+                color: black;
+                margin-bottom: 15px;
+                border: 1px solid black;
+                border-radius: 5px;
+            }
+            
+            hr.secondary {
+                border-color: white;
+            }
+
+            label[for="asker_form_email"],label[for="tasker_form_email"] {
+                display: none;
+            }
+
+            label[for="asker_form_services"], label[for="tasker_form_services"] {
+                padding-top: 15px;
+                display: block;
+            }
+
+            #asker_form_services, #tasker_form_services {
+                color:black;
+                display: block;
+                margin: auto;
+            }
+
+            .save {
+                margin-top: 15px;
+            }
+
+            .cb-slideshow,
+            .cb-slideshow:after { 
+                width: 100%;
+                height: 850px;
+                overflow: hidden;
+                list-style-type: none;
+                margin-top: 50px;
+            }
+
+            @media screen and (max-width: 1140px) { 
+                .cb-slideshow,
+                .cb-slideshow:after {
+                    height: 850px;
+                }
+            }
+            @media screen and (max-width: 600px) { 
+                .cb-slideshow,
+                .cb-slideshow:after {
+                    height: 350px;
+                }
+            }
+
+            .cb-slideshow li span { 
+                width: 100%;
+                height: 100%;
+                position: absolute;
+                top: 0px;
+                left: 0px;
+                color: transparent;
+                background-size: cover;
+                background-position: 50% 50%;
+                background-repeat: none;
+                opacity: 0;
+                z-index: 0;
+                animation: imageAnimation 24s linear infinite 0s; 
+            }
+
+            .cb-slideshow li div { 
+                z-index: 1000;
+                position: absolute;
+                bottom: 30px;
+                left: 0px;
+                width: 100%;
+                text-align: center;
+                opacity: 1;
+                color: #fff;
+                animation: titleAnimation 24s linear infinite 0s; 
+            }
+
+            .cb-slideshow li:nth-child(1) span { 
+                background-image: url('{{ asset('img/talents/jardinage.jpg') }}') ;
+            }
+            .cb-slideshow li:nth-child(2) span { 
+                background-image: url('{{ asset('img/talents/ménage.jpg') }}');
+                animation-delay: 6s; 
+            }
+            .cb-slideshow li:nth-child(3) span { 
+                background-image: url('{{ asset('img/talents/meubles.jpg') }}');
+                animation-delay: 12s; 
+            }
+            .cb-slideshow li:nth-child(4) span { 
+                background-image: url('{{ asset('img/talents/plombier.jpg') }}');
+                animation-delay: 18s; 
+            }
+
+            .cb-slideshow li:nth-child(1) div { 
+                animation-delay: 6s; 
+            }
+            .cb-slideshow li:nth-child(2) div { 
+                animation-delay: 6s; 
+            }
+            .cb-slideshow li:nth-child(3) div { 
+                animation-delay: 12s; 
+            }
+            .cb-slideshow li:nth-child(4) div { 
+                animation-delay: 18s; 
+            }
+
+            @keyframes imageAnimation { 
+                0% { opacity: 0; animation-timing-function: ease-in; }
+                8% { opacity: 1; animation-timing-function: ease-out; }
+                17% { opacity: 1 }
+                25% { opacity: 0 }
+                100% { opacity: 0 }
+            }
+            
+            #homeDiv {
+                position:absolute;
+                top: 45%;
+            }
+
+            .alert-success {
+                position: fixed;
+                bottom: 0;
+                margin: auto;
+                left: 0;
+                right: 0;
+                width: 70%;
+            }
+            #select-lang {
+                margin-top: 5px;
+            }
+
+            #select-lang label {
+                font-weight: normal;
+            }
+
+            #select-lang input {
+                display: none;
+            }
+
+            #fr:checked ~ label[for="fr"] {
+                font-weight: bold;
+            }
+
+            #en:checked ~ label[for="en"] {
+                font-weight: bold;
+            }
+
+            #calltoaction:hover {
+                text-decoration: none;
+            }
+        </style>
+        {% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+    </head>
+    <body id="page-top">
+        {% block body %}
+            <nav id="mainNav" class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span> Menu <i class="fa fa-bars"></i>
+                    </button>
+                    <a class="navbar-brand page-scroll" href="#page-top"><img src="{{ asset('img/suisse.jpg') }}" style="display:inline;" alt="suisse-flag" width="32" height="24"/>Hometalent.ch</a>
+                </div>
+
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a class="page-scroll" href="#header">{% trans %}Home{% endtrans %}</a>
+                        </li>
+                        <li>
+                            <a class="page-scroll" href="#services">{% trans %}Services{% endtrans %}</a>
+                        </li>
+                        <li>
+                            <a class="page-scroll" href="#contact">{% trans %}Contact{% endtrans %}</a>
+                        </li>
+                        <a class="page-scroll navbar-btn btn btn-primary" href="#talents">{% trans %}Votez{% endtrans %}</a>
+                        <li>
+                            <form action="{{ path('set_language') }}" id="select-lang" method="post" onChange="this.submit();">
+                                <input type="radio" id="en" name="language" {% if "en" == app.request.getLocale() %} checked="checked"{% endif %} value="en"/><label for="en">EN</label>|
+                                <input type="radio" id="fr" name="language" {% if "fr" == app.request.getLocale() %} checked="checked"{% endif %} value="fr"/><label for="fr">FR</label>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+
+        <!--<header>
+            <div class="header-content">
+                <div class="header-content-inner">
+                    <h1 id="homeHeading"><span style="background-color:rgba(0,0,0,.75);">Besoin d'un coup de main?</span></h1>
+                    <hr>
+                    <p><span style="background-color:rgba(0,0,0,.75);">Hometalent vous trouve une personne fiable et compétente près de chez vous.</span></p>
+                    <a href="#about" class="btn btn-primary btn-xl page-scroll">Découvrez le concept</a>
+                </div>
+            </div>
+        </header>-->
+
+        <header id="header">
+            <ul class="cb-slideshow">
+                <li>
+                    <span></span>
+                    <div id="homeDiv">
+                        <h1 id="homeHeading">{% trans %}De quel talent avez-vous besoin ?{% endtrans %}</h1>
+                        <a id="calltoaction"href="#talents" class="page-scroll fa fa-chevron-circle-down fa-5x"></a>
+                    </div>
+                </li>
+                <li>
+                    <span></span>
+                    <div>
+                    </div>
+                </li>
+                <li>
+                    <span></span>
+                    <div>
+                    </div>
+                </li>
+                <li>
+                    <span></span>
+                    <div>
+                    </div>
+                </li>
+            </ul>
+        </header>
+
+        <aside id="talents">
+            <div class="container text-center">
+                <div class="call-to-action">
+                    <h2>{% trans %}En attendant le lancement de notre plateforme, partagez vos besoins et vos talents avec nous !{% endtrans %}</h2>
+                    <p>{% trans %} (toutes personnes participants au sondage sera invité à utiliser gratuitement le service en version beta){% endtrans %}</p>
+                    <div class="col-lg-6 post-form">
+                        <h3>{% trans %}Ce service m'intéresse{% endtrans %}</h3>
+                        {{ form_start(askerForm) }}
+                        {{ form_widget(askerForm) }}
+                        {{ form_end(askerForm) }}
+                    </div>
+                
+                    <div class="col-lg-6 post-form">
+                        <h3>{% trans %}Ce service m'intéresse{% endtrans %}</h3>
+                        {{ form_start(taskerForm) }}
+                        {{ form_widget(taskerForm) }}
+                        {{ form_end(taskerForm) }}
+                    </div>
+                    <p>{% trans %}* Nous vous garantissons que nous n'utiliserons pas votre adresse e-mail à des fins commerciales{% endtrans %}</p>
+                </div>
+            </div>
+        </aside>
+
+        <!--<section class="bg-primary" id="about">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 text-center">
+                        <h2 class="section-heading">Cette plateforme est à votre service !</h2>
+                        <hr class="light">
+                        <p class="text-faded">Vous avez besoin de quelqu'un pour faire le ménage ? Vous avez besoin de monter un meuble Ikea? Vous ne savez pas changer l'huile de votre voiture, mais ne souhaitez pas vous rendre dans un garage ? Vous avez un robinet qui fuit, mais aucun plombier n'est disponible ? Vous avez besoin d'aide pour descendre un meuble à la cave ? Hometalent est là pour vous ! </p>
+                        <a href="#services" class="page-scroll btn btn-default btn-xl sr-button">Commencez!</a>
+                    </div>
+                </div>
+            </div>
+        </section>-->
+        <aside class="bg-primary" id="services">
+            <div class="container">
+                <h3 class="text-center">{% trans %}Hometalent vous trouve une personne fiable et compétente près de chez vous.{% endtrans %}</h3>
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="section-heading">{% trans %}Services{% endtrans %}</h2>
+                        <hr class="secondary">
+                    </div>
+                </div>
+            </div>
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-3 col-sm-6 text-center">
+                        <ul class="list-group services-list">
+                            <li class="list-group-item">{% trans %}Bricolage{% endtrans %}</li>
+                            <li class="list-group-item">{% trans %}Jardinage{% endtrans %}</li>
+                            <li class="list-group-item">{% trans %}Déménagement{% endtrans %}</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 text-center">
+                        <ul class="list-group services-list">
+                            <li class="list-group-item">{% trans %}Ménage/Repassage{% endtrans %}</li>
+                            <li class="list-group-item">{% trans %}Assemblage meuble{% endtrans %}</li>
+                            <li class="list-group-item">{% trans %}Informatique{% endtrans %}</li>
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 text-center">
+                        <ul class="list-group services-list">
+                            <li class="list-group-item">{% trans %}Coursier{% endtrans %}</li>
+                            <li class="list-group-item">{% trans %}Garde d'animaux{% endtrans %}</li>
+                            <li class="list-group-item">{% trans %}Evénementiel{% endtrans %}</li> 
+                        </ul>
+                    </div>
+                    <div class="col-lg-3 col-sm-6 text-center">
+                        <ul class="list-group services-list">
+                            <li class="list-group-item">{% trans %}Administratif{% endtrans %}</li>
+                            <li class="list-group-item">{% trans %}Service à la personne{% endtrans %}</li>
+                            <li class="list-group-item">{% trans %}Mode, Beauté &amp; Bien-être{% endtrans %}</li>
+                        </ul>
+                    </div>
+                    <!--<div class="col-lg-4 col-sm-6">
+                        <a href="{{ asset('img/portfolio/fullsize/building.jpg') }}" class="portfolio-box">
+                            <img src="{{ asset('img/portfolio/thumbnails/building.jpg') }}" class="img-responsive" alt="">
+                            <div class="portfolio-box-caption">
+                                <div class="portfolio-box-caption-content">
+                                    <div class="project-category text-faded">
+                                        Architecte
+                                    </div>
+                                    <div class="project-name">
+                                        Valider un plan, décoration d'intérieur...
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a href="{{ asset('img/portfolio/fullsize/code.jpeg') }}" class="portfolio-box">
+                            <img src="{{ asset('img/portfolio/thumbnails/code.jpeg') }}" class="img-responsive" alt="">
+                            <div class="portfolio-box-caption">
+                                <div class="portfolio-box-caption-content">
+                                    <div class="project-category text-faded">
+                                        Programmation
+                                    </div>
+                                    <div class="project-name">
+                                        Création de site, d'application, de programmes...
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a href="{{ asset('img/portfolio/fullsize/chef.jpeg') }}" class="portfolio-box">
+                            <img src="{{ asset('img/portfolio/thumbnails/chef.jpeg') }}" class="img-responsive" alt="">
+                            <div class="portfolio-box-caption">
+                                <div class="portfolio-box-caption-content">
+                                    <div class="project-category text-faded">
+                                        Cuisine
+                                    </div>
+                                    <div class="project-name">
+                                        Cuisine à domicile, locale et conviviale
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a href="{{ asset('img/portfolio/fullsize/finance.jpeg') }}" class="portfolio-box">
+                            <img src="{{ asset('img/portfolio/thumbnails/finance.jpeg') }}" class="img-responsive" alt="">
+                            <div class="portfolio-box-caption">
+                                <div class="portfolio-box-caption-content">
+                                    <div class="project-category text-faded">
+                                        Finance
+                                    </div>
+                                    <div class="project-name">
+                                        Remplir la déclaration, aide pour placements...
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a href="{{ asset('img/portfolio/fullsize/garden.jpg') }}" class="portfolio-box">
+                            <img src="{{ asset('img/portfolio/thumbnails/garden.jpg') }}" class="img-responsive" alt="">
+                            <div class="portfolio-box-caption">
+                                <div class="portfolio-box-caption-content">
+                                    <div class="project-category text-faded">
+                                        Jardinage
+                                    </div>
+                                    <div class="project-name">
+                                        Tondre la pelouse, arroser, planter des arbres...
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="col-lg-4 col-sm-6">
+                        <a href="{{ asset('img/portfolio/fullsize/tools.jpg') }}" class="portfolio-box">
+                            <img src="{{ asset('img/portfolio/thumbnails/tools.jpg') }}" class="img-responsive" alt="">
+                            <div class="portfolio-box-caption">
+                                <div class="portfolio-box-caption-content">
+                                    <div class="project-category text-faded">
+                                        Bricolage
+                                    </div>
+                                    <div class="project-name">
+                                        Monter des meubles Ikea, réparer une chaise...
+                                    </div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>-->
+                </div>
+                <h3 class="text-center">{% trans %}Et plus encore ...{% endtrans %}</h3>
+            </div>
+        </aside>
+
+        <aside id="avantages">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-12 text-center">
+                        <h2 class="section-heading">{% trans %}Quels avantages ?{% endtrans %}</h2>
+                        <hr class="primary">
+                    </div>
+                </div>
+            </div>
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-diamond text-primary sr-icons"></i>
+                            <h3>{% trans %}Qualité{% endtrans %}</h3>
+                            <p class="text-muted">{% trans %}Trouvez LE Talent qu'il vous faut, compétent, honnête et à un tarif raisonnable.{% endtrans %}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-clock-o text-primary sr-icons"></i>
+                            <h3>{% trans %}Flexibilité{% endtrans %}</h3>
+                            <p class="text-muted">{% trans %}Demandez de l'aide pour une heure ou pour toute une journée.{% endtrans %}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-paper-plane text-primary sr-icons"></i>
+                            <h3>{% trans %}Rapidité{% endtrans %}</h3>
+                            <p class="text-muted">{% trans %}Voyez en temps réel qui est disponible et où.{% endtrans %}</p>
+                        </div>
+                    </div>
+                    <div class="col-lg-3 col-md-6 text-center">
+                        <div class="service-box">
+                            <i class="fa fa-4x fa-map-marker text-primary sr-icons"></i>
+                            <h3>{% trans %}Proximité{% endtrans %}</h3>
+                            <p class="text-muted">{% trans %}Echangez des services avec des personnes proches de chez vous.{% endtrans %}</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        <aside id="contact" class="bg-dark">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-8 col-lg-offset-2 text-center">
+                        <h2 class="section-heading">{% trans %}Contactez nous!{% endtrans %}</h2>
+                        <hr class="primary">
+                        <p>{% trans %}Un avis ? Des questions ? Un commentaire ? Nous sommes à votre écoute.{% endtrans %}</p>
+                    </div>
+                    <div class="col-lg-2 col-lg-offset-2 text-center" >
+                        <a href="https://www.facebook.com/hometalentCH" style="color:white;" target="_blank">
+                            <i class="fa fa-facebook-square fa-3x sr-contact"></i>
+                            <p>Facebook</p>
+                        </a>
+                    </div>
+                     <div class="col-lg-2 text-center">
+                        <a href="https://www.instagram.com/hometalent/" style="color:white;" target="_blank">
+                            <i class="fa fa-instagram fa-3x sr-contact"></i>
+                            <p>Instagram</p>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 text-center">
+                        <a href="https://twitter.com/HometalentCh" style="color:white;" target="_blank">
+                            <i class="fa fa-twitter-square fa-3x sr-contact"></i>
+                            <p>Twitter</p>
+                        </a>
+                    </div>
+                    <div class="col-lg-2 text-center">
+                        <a href="mailto:info@hometalent.ch" style="color:white;" >
+                            <i class="fa fa-envelope-o fa-3x sr-contact"></i>
+                            <p>info@hometalent.ch</p>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </aside>
+
+        {% if sent|default(false) == 'true' %}
+            <div class="alert alert-success alert-dismissible" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              {% trans %}Merci pour votre participation! nous vous recontacterons dès l'ouverture du service{% endtrans %}
+            </div>
+            <script type="text/javascript">
+                setTimeout(function() {
+                    $('.alert-success').fadeOut('slow');
+                }, 5000); // <-- time in milliseconds
+            </script>
+        {% endif %}
+        {% endblock %}
+        {% block javascripts %}
+            <!-- jQuery -->
+            <script src="{{ asset('vendor/jquery/jquery.min.js') }}" />
+
+            <!-- Bootstrap Core JavaScript -->
+            <script src="{{ asset('vendor/bootstrap/js/bootstrap.min.js') }}"></script>
+
+            <!-- Plugin JavaScript -->
+            <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.3/jquery.easing.min.js"></script>
+            <script src="{{ asset('vendor/scrollreveal/scrollreveal.min.js') }}"></script>
+            <script src="{{ asset('vendor/magnific-popup/jquery.magnific-popup.min.js') }}"></script>
+
+            <!-- Theme JavaScript -->
+            <script src="{{ asset('js/creative.min.js') }}"></script>
+            <!-- Latest compiled and minified JavaScript -->
+            <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.0/js/bootstrap-select.min.js"></script>
+
+            <!-- (Optional) Latest compiled and minified JavaScript translation files -->
+            <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.0/js/i18n/defaults-en_US.min.js"></script>
+            <script src="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.0/js/i18n/defaults-fr_FR.min.js"></script>
+
+            <!-- GA -->
+            <script>
+              (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+               (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+                m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+              })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+
+              ga('create', 'UA-8915365-8', 'auto');
+              ga('send', 'pageview');
+            </script>
+        {% endblock %}
+    </body>
+</html>
