@@ -9,7 +9,7 @@ framework:
 
 web_profiler:
     toolbar: true
-    intercept_redirects: false
+    intercept_redirects: true
 
 doctrine:
     dbal:
@@ -36,5 +36,5 @@ monolog:
         #    type:   chromephp
         #    level:  info
 
-#swiftmailer:
-#    delivery_addresses: ['me@example.com']
+swiftmailer:
+    delivery_addresses: ['mamiefurax@gmail.com']

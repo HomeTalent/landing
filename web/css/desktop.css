@@ -1,0 +1,79 @@
+#select-lang {
+    font-size: 16px;
+}
+
+nav #logo {
+    font-size: 23px;
+}
+
+nav #logo img {
+    width: 70px;
+    height: 65px;
+}
+
+nav .social {
+    margin-top: -45px;
+}
+
+nav .social a, footer .social a {
+    width: 32px;
+    height: 32px;
+    margin-left: 20px;
+}
+
+nav .social a img, footer .social a img {
+    width: 32px;
+    height: 32px;
+}
+
+section:first-of-type {
+    background-image: url('../img/bg-large.webp'), url('../img/bg-large.jpeg');
+    min-height: 748px;
+}
+
+#content {
+    width: 510px;
+    height: 370px;
+}
+
+#content h1 {
+    font-size: 38px;
+}
+
+#content h2 {
+    font-size: 26px;
+}
+
+#content p {
+    font-size: 16px;
+    max-width: 300px;
+    margin-left: 100px;
+    padding-top: 20px;
+}
+
+#call-to-action {
+    bottom: 25px;
+    left: 375px;
+    width: 117px;
+    height: 108px;
+    border-radius: 120px;
+    font-size: 17px;
+}
+
+#contact {
+    max-width: 500px;
+    margin-left: 150px;
+}
+
+#contact h3 {
+    font-size: 46px;
+    font-weight: normal;
+}
+
+#contact p {
+    font-size: 16px;
+}
+
+#contact input, #contact textarea {
+    border-width: 3px;
+}

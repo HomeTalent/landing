@@ -7,6 +7,7 @@ imports:
 # http://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
     locale: en
+    contact_email: info@hometalent.ch
 
 framework:
     #esi:             ~
@@ -43,11 +44,11 @@ twig:
 doctrine:
     dbal:
         driver:   pdo_mysql
-        host:     "%env(DATABASE_HOST)%"
-        port:     "%env(DATABASE_PORT)%"
-        dbname:   "%env(DATABASE_NAME)%"
-        user:     "%env(DATABASE_USER)%"
-        password: "%env(DATABASE_PASSWORD)%"
+        host:     "@=env(DATABASE_HOST) ? env(DATABASE_HOST) : ''"
+        port:     "@=env(DATABASE_PORT) ? env(DATABASE_PORT) : ''"
+        dbname:   "@=env(DATABASE_NAME) ? env(DATABASE_NAME) : ''"
+        user:     "@=env(DATABASE_USER) ? env(DATABASE_USER) : ''"
+        password: "@=env(DATABASE_PASSWORD) ? env(DATABASE_PASSWORD) : ''"
         charset:  UTF8
 
     orm:

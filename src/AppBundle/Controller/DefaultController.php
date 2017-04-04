@@ -4,6 +4,8 @@ namespace AppBundle\Controller;
 
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Form\Extension\Core\Type\HiddenType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
@@ -15,21 +17,6 @@ use AppBundle\Entity\Prospect;
 class DefaultController extends Controller
 {
 
-    const SERVICES_CHOICES = [
-        'bricolage' => 'Bricolage',
-        'jardinage' => 'Jardinage',
-        'demenagement' => 'Déménagement',
-        'menage-repassage' => 'Ménage/Repassage',
-        'assemblage-meuble' => 'Assemblage meuble',
-        'informatique' => 'Informatique',
-        'coursier' => 'Coursier',
-        'animaux' => 'Garde d\'animaux',
-        'evenementiel' => 'Evénementiel',
-        'prestation-administratif' => 'Administratif',
-        'service-personne' => 'Service à la personne',
-        'mode-beaute' => 'Mode, Beauté & Bien-être'
-    ];
-
     /**
      * @Route("/", name="homepage")
      */
@@ -38,82 +25,48 @@ class DefaultController extends Controller
         $translator = $this->get('translator');
         $sent = false;
 
-        $askerForm = $this->get('form.factory')
-        ->createNamedBuilder('asker_form', FormType::class, ['type' => 'ASKER'])
-        ->add('type', HiddenType::class)
+        $contactForm = $this->get('form.factory')
+        ->createNamedBuilder('contact_form', FormType::class)
+        ->add('name', TextType::class, [
+            'label' => '',
+            'attr' => ['placeholder' => $translator->trans('Nom')]
+        ])
         ->add('email', EmailType::class, [
                 'label' => '',
-                'attr' => ['placeholder' => 'mail@example.com']
+                'attr' => ['placeholder' => $translator->trans('Email')]
             ]
         )
-        ->add('services', ChoiceType::class, [
-                'label' => $translator->trans('Mes besoins'),
-                'choices' => self::SERVICES_CHOICES, 
-                'multiple' => true, 
-                'attr' => ['class' => 'selectpicker']
+        ->add('message', TextareaType::class, [
+                'label' => '',
+                'attr' => ['placeholder' => 'Message']
             ]
         )
         ->add('send', SubmitType::class, [
-                'label' => $translator->trans('J\'AI BESOIN D\'AIDE !'), 
-                'attr' => ['class' => 'save btn btn-primary']
+                'label' => $translator->trans('ENVOYER'),
             ]
         )->getForm();
 
-        $askerForm->handleRequest($request);
+        $contactForm->handleRequest($request);
 
-
-        $taskerForm = $this->get('form.factory')
-        ->createNamedBuilder('tasker_form', FormType::class, ['type' => 'TASKER'])
-        ->add('type', HiddenType::class)
-        ->add('email', EmailType::class, [
-                'label' => '',
-                'attr' => ['placeholder' => 'mail@example.com']
-            ]
-        )
-        ->add('services', ChoiceType::class, [
-                'label' => $translator->trans('Mes talents'),
-                'choices' => self::SERVICES_CHOICES, 
-                'multiple' => true, 
-                'attr' => ['class' => 'selectpicker']
-            ]
-        )
-        ->add('send', SubmitType::class, [
-                'label' => $translator->trans('JE PROPOSE MES SERVICES !'), 
-                'attr' => ['class' => 'save btn btn-primary']
-            ]
-        )->getForm();
-
-        $taskerForm->handleRequest($request);
-
-        if ($askerForm->isSubmitted() && $askerForm->isValid()) {
+        if ($contactForm->isSubmitted() && $contactForm->isValid()) {
             // data is an array with "name", "email", and "message" keys
-            $data = $askerForm->getData();
-            $sent = true;
-        }
-
-        if ($taskerForm->isSubmitted() && $taskerForm->isValid()) {
-            // data is an array with "name", "email", and "message" keys
-            $data = $taskerForm->getData();
+            $data = $contactForm->getData();
             $sent = true;
         }
 
         if($sent) {
-            $prospect = new Prospect();
-            $prospect->setEmail($data['email']);
-            $prospect->setServices($data['services']);
-            $prospect->setType($data['type']);
-
-            $em = $this->getDoctrine()->getManager();
-            // tells Doctrine you want to (eventually) save the Product (no queries yet)
-            $em->persist($prospect);
-            // actually executes the queries (i.e. the INSERT query)
-            $em->flush();
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Contact enquiry from hometalent')
+                ->setFrom($data['email'])
+                ->setTo($this->container->getParameter('contact_email'))
+                ->setBody($this->renderView('default/email.txt.twig', array('data' => $data)));
+            $this->get('mailer')->send($message);
+            $this->redirect('/');
         }
 
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
-            'askerForm' => $askerForm->createView(),
-            'taskerForm' => $taskerForm->createView(),
+            'contact_form' => $contactForm->createView(),
             'sent' => $sent,
         ]);
     }
