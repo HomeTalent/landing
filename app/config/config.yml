@@ -9,6 +9,7 @@ parameters:
     locale: fr
     contact_email: info@hometalent.ch
 
+
 framework:
     #esi:             ~
     translator:      { fallbacks: ["%locale%"] }
@@ -58,8 +59,9 @@ doctrine:
 
 # Swiftmailer Configuration
 swiftmailer:
-    transport: "%mailer_transport%"
-    host:      "%mailer_host%"
-    username:  "%mailer_user%"
-    password:  "%mailer_password%"
+    transport: "@=env(MAILER_TRANSPORT) ? env=(MAILER_TRANSPORT) : %mailer_transport%"
+    host:      "@=env(MAILER_HOST) ? env=(MAILER_HOST) : %mailer_host%"
+    port:      "@=env(MAILER_PORT) ? env=(MAILER_PORT) : %mailer_port%"
+    username:  "@=env(MAILER_USER) ? env=(MAILER_USER) : %mailer_user%"
+    password:  "@=env(MAILER_PASSWORD) ? env=(MAILER_PASSWORD) : %mailer_password%"
     spool:     { type: memory }
