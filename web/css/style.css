@@ -13,7 +13,8 @@ body {
 }
 #select-lang {
     font-family: soho-w01-thin-condensed,soho-w02-thin-condensed,serif;
-    font-size: 14px;
+    font-size: 18px;
+    line-height: 26px;
     font-weight: bold;
     color: rgb(96,94,94);
     position: absolute;
@@ -57,7 +58,8 @@ footer {
 
 nav #logo {
     font-family: soho-w01-thin-condensed,soho-w02-thin-condensed,serif;
-    font-size: 15px;
+    font-size: 21px;
+    font-weight: bold;
     width: 60%;
     text-decoration: none;
     display: block;
@@ -65,10 +67,10 @@ nav #logo {
 
 nav #logo img {
     float: left;
-    width: 48px;
-    height: 42px;
+    width: 64px;
+    height: 60px;
     object-fit: cover;
-    padding-right: 5px;
+    padding-right: 8px;
 }
 
 nav #logo span {
@@ -92,15 +94,15 @@ nav .social, footer .social {
 
 nav .social a, footer .social a {
     display: inline-block;
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
     text-decoration: none;
-    margin-left: 10px;
+    margin-left: 16px;
 }
 
 nav .social a img, footer .social a img {
-    width: 16px;
-    height: 16px;
+    width: 24px;
+    height: 24px;
 }
 
 section:first-of-type {

@@ -8,13 +8,13 @@
                 <span>Live Different</span>
             </a>
             <div class="social">
-                <a class="facebook" href="https://www.facebook.com/hometalentCH">
+                <a class="facebook" target="_blank" href="https://www.facebook.com/hometalentCH">
                     <img src="{{ asset('img/facebook.png') }}"/>
                 </a>
-                <a class="instagram" href="https://www.instagram.com/hometalent/">
+                <a class="instagram" target="_blank" href="https://www.instagram.com/hometalent.ch">
                     <img src="{{ asset('img/instagram.png') }}"/>
                 </a>
-                <a class="twitter" href="https://twitter.com/HometalentCh">
+                <a class="twitter" target="_blank" href="https://twitter.com/HometalentCh">
                     <img src="{{ asset('img/twitter.png') }}"/>
                 </a>
             </div>
@@ -37,13 +37,13 @@
             <h3>{% trans %}Nous contacter{% endtrans %}</h3>
             <p>{% trans %}Une question, un avis ou juste un petit message. Nous vous répondrons avec plaisir !{% endtrans %}</p>
             <span class="social">
-                <a class="facebook" href="https://www.facebook.com/hometalentCH">
+                <a class="facebook" target="_blank" href="https://www.facebook.com/hometalentCH">
                     <img src="{{ asset('img/fb-black.png') }}"/>
                 </a>
-                <a class="instagram" href="https://www.instagram.com/hometalent/">
+                <a class="instagram" target="_blank" href="https://www.instagram.com/hometalent.ch">
                     <img src="{{ asset('img/insta-black.png') }}"/>
                 </a>
-                <a class="twitter" href="https://twitter.com/HometalentCh">
+                <a class="twitter" target="_blank" href="https://twitter.com/HometalentCh">
                     <img src="{{ asset('img/twit-black.png') }}"/>
                 </a>
             </span>
@@ -53,10 +53,6 @@
                 {{ form_row(contact_form.message) }}
                 {{ form_rest(contact_form) }}
                 {{ form_row(contact_form.send) }}
-                {#<input name="name" id="email" type="text" placeholder="{% trans %}Nom{% endtrans %}" />#}
-                {#<input name="email" id="email" type="text" placeholder="{% trans %}Email{% endtrans %}" />#}
-                {#<textarea placeholder="{% trans %}Message{% endtrans %}"></textarea>#}
-                {#<input type="submit" value="{% trans %}ENVOYER{% endtrans %}" />#}
             </form>
         </div>
     </footer>
