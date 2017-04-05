@@ -1,0 +1,1 @@
+[ ![Codeship Status for HomeTalent/landing](https://app.codeship.com/projects/fcc00410-e00f-0134-5a77-3aef95d095ec/status?branch=master)](https://app.codeship.com/projects/205139)
