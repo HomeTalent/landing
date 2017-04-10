@@ -87,6 +87,6 @@ class DefaultController extends Controller
      */
     public function flyerAction()
     {
-        $this->redirect('/');
+        return $this->redirect('/');
     }
 }
