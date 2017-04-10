@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="description" content="VOUS MANQUEZ DE TEMPS ? FAITES APPEL À NOS TALENTS  ET DÉTENDEZ VOUS !">
-        <meta name="author" content="hometalent">
+        <meta name="author" content="hometalent.ch">
         <title>{% block title %}{% trans %}Welcome!{% endtrans %} Hometalent.ch - Entraide à Genève{% endblock %}</title>
         {% block stylesheets %}
         <!-- Custom Fonts -->
@@ -29,9 +29,11 @@
               {% trans %}Merci pour votre participation! nous vous recontacterons dès l'ouverture du service{% endtrans %}
             </div>
             <script type="text/javascript">
-                setTimeout(function() {
-                    $('.alert-success').fadeOut('slow');
-                }, 5000); // <-- time in milliseconds
+                $(document).ready(function(){
+                    setTimeout(function() {
+                        $('.alert-success').fadeOut('slow');
+                    }, 5000); // <-- time in milliseconds
+                });
             </script>
         {% endif %}
         {% endblock %}

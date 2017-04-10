@@ -81,4 +81,12 @@ class DefaultController extends Controller
 
         return $this->redirect('/');
     }
+
+    /**
+     * @Route ("/flyer", name="flyer")
+     */
+    public function flyerAction()
+    {
+        $this->redirect('/');
+    }
 }
