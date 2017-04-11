@@ -27,7 +27,7 @@ nav .social a img, footer .social a img {
 }
 
 section:first-of-type {
-    background-image: url('../img/bg-large.webp'), url('../img/bg-large.jpeg');
+    background-image: url('../img/bg-large2.jpg');
     min-height: 748px;
 }
 
