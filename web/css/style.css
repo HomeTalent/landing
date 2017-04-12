@@ -107,7 +107,7 @@ nav .social a img, footer .social a img {
 
 section:first-of-type {
     clear: both;
-    background-image: url('../img/bg-large2.jpg');
+    background-image: url('../img/background2.jpg');
     background-size: cover;
     min-height: 404px;
     position: static;
