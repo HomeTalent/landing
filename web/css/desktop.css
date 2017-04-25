@@ -32,8 +32,7 @@ section:first-of-type {
 }
 
 #content {
-    width: 510px;
-    height: 370px;
+    width: 600px;
 }
 
 #content h1 {
@@ -44,7 +43,7 @@ section:first-of-type {
     font-size: 26px;
 }
 
-#content p {
+#content .before-launch {
     font-size: 16px;
     max-width: 300px;
     margin-left: 100px;
@@ -54,10 +53,14 @@ section:first-of-type {
 #call-to-action {
     bottom: 25px;
     left: 375px;
-    width: 117px;
-    height: 108px;
+    width: 180px;
+    height: 180px;
     border-radius: 120px;
     font-size: 17px;
+}
+
+#call-to-action:after {
+    border-radius: 120px;
 }
 
 #contact {

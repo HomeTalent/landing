@@ -1,6 +1,8 @@
 body {
     margin: 0;
     padding: 0;
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
 }
 
 .alert-success {
@@ -60,7 +62,7 @@ nav #logo {
     font-family: soho-w01-thin-condensed,soho-w02-thin-condensed,serif;
     font-size: 21px;
     font-weight: bold;
-    width: 60%;
+    width: 62%;
     text-decoration: none;
     display: block;
 }
@@ -109,16 +111,16 @@ section:first-of-type {
     clear: both;
     background-image: url('../img/background2.jpg');
     background-size: cover;
-    min-height: 404px;
+    min-height: 510px;
     position: static;
 }
 
 #content {
-    width: 244px;
-    height: 229px;
+    width: 280px;
+    min-height: 229px;
     background-color: rgba(255, 255, 255, 0.8);
     position: relative;
-    top: 75px;
+    top: 25px;
     margin-top: 20px;
     overflow: hidden;
     font-family: raleway, sans-serif;
@@ -131,28 +133,37 @@ section:first-of-type {
     text-align: center;
     color: rgb(96,94,94);
     margin-top: 5px;
+    margin-bottom: 15px;
+}
+
+#content .subtitle, #content .subtext {
+    text-align: center;
+    color: rgb(96,94,94);
+}
+
+#content .subtext {
+    font-size: 12px;
 }
 
 #content h2 {
     font-size: 14px;
     text-align: center;
     color: rgb(207, 187, 124);
-    margin-bottom: 32px;
+    margin-bottom: 20px;
 }
 
-#content p {
-    max-width: 150px;
-    font-size: 9px;
-    color: rgb(96,94,94);
+#content .before-launch {
+    font-size: 15px;
+    color: #F39545;
     margin-left: 10px;
 }
 
 #call-to-action {
     color: white;
     display: table-cell;
-    width: 90px;
-    height: 84px;
-    background-color: rgb(207, 187, 124);
+    width: 100px;
+    height: 120px;
+    background-color: #F39545;
     text-decoration: none;
     text-align: center;
     vertical-align: middle;
@@ -161,6 +172,26 @@ section:first-of-type {
     position: relative;
     left: 150px;
     bottom: 10px;
+    -webkit-animation: button-bounce 2200ms forwards infinite cubic-bezier(0.165, 0.84, 0.44, 1);
+    -moz-animation: button-bounce 2200ms forwards infinite cubic-bezier(0.165, 0.84, 0.44, 1);
+    animation: button-bounce 2200ms forwards infinite cubic-bezier(0.165, 0.84, 0.44, 1);
+    -webkit-transition: background-color 0.3s ease;
+    -moz-transition: background-color 0.3s ease;
+    transition: background-color 0.3s ease;
+}
+
+#call-to-action:after {
+    background-color: #FFA81E;
+    content: "";
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    width: 100%;
+    height: 100%;
+    border-radius: 50px;
+    -webkit-animation: button-blip 2200ms forwards infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+    -moz-animation: button-blip 2200ms forwards infinite cubic-bezier(0.215, 0.61, 0.355, 1);
+    animation: button-blip 2200ms forwards infinite cubic-bezier(0.215, 0.61, 0.355, 1);
 }
 
 #call-to-action:hover {
@@ -221,4 +252,107 @@ section:first-of-type {
     float: right;
     margin: 0;
     max-width: 35%;
+}
+
+@-webkit-keyframes button-bounce {
+    0% {
+        transform: scale(1);
+    }
+    10% {
+        transform: scale(0.96);
+    }
+    20% {
+        transform: scale(1.04);
+    }
+    52%,
+    100% {
+        transform: scale(1);
+    }
+}
+@-moz-keyframes button-bounce {
+    0% {
+        transform: scale(1);
+    }
+    10% {
+        transform: scale(0.96);
+    }
+    20% {
+        transform: scale(1.04);
+    }
+    52%,
+    100% {
+        transform: scale(1);
+    }
+}
+@keyframes button-bounce {
+    0% {
+        transform: scale(1);
+    }
+    10% {
+        transform: scale(0.96);
+    }
+    20% {
+        transform: scale(1.04);
+    }
+    52%,
+    100% {
+        transform: scale(1);
+    }
+}
+@-webkit-keyframes button-blip {
+    0% {
+        transform: scaleX(1) scaleY(1);
+        opacity: 0;
+    }
+    10% {
+        transform: scaleX(1) scaleY(1);
+        opacity: .7;
+    }
+    30%,
+    99% {
+        transform: scaleX(1.08) scaleY(1.35);
+        opacity: 0;
+    }
+    100% {
+        transform: scaleX(1) scaleY(1);
+        opacity: 0;
+    }
+}
+@-moz-keyframes button-blip {
+    0% {
+        transform: scaleX(1) scaleY(1);
+        opacity: 0;
+    }
+    10% {
+        transform: scaleX(1) scaleY(1);
+        opacity: .7;
+    }
+    30%,
+    99% {
+        transform: scaleX(1.08) scaleY(1.35);
+        opacity: 0;
+    }
+    100% {
+        transform: scaleX(1) scaleY(1);
+        opacity: 0;
+    }
+}
+@keyframes button-blip {
+    0% {
+        transform: scaleX(1) scaleY(1);
+        opacity: 0;
+    }
+    10% {
+        transform: scaleX(1) scaleY(1);
+        opacity: .7;
+    }
+    30%,
+    99% {
+        transform: scaleX(1.08) scaleY(1.35);
+        opacity: 0;
+    }
+    100% {
+        transform: scaleX(1) scaleY(1);
+        opacity: 0;
+    }
 }

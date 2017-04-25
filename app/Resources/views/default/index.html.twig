@@ -25,10 +25,17 @@
         </nav>
     </header>
     <section>
+        {% if "fr" == app.request.getLocale() %}
+            {% set marketingFormLink = "https://docs.google.com/forms/d/e/1FAIpQLSc1R_Fj_mPTB4TEla3ZUmtnELPavJUmqQ-PQiXDlzrAfUCQgw/viewform?usp=sf_link" %}
+        {% else %}
+            {% set marketingFormLink = "https://docs.google.com/forms/d/e/1FAIpQLSeDSgkL9P1hZpdYCs-ntC4X9eL1tJqOIwLmVO1QzK-yWjEM0Q/viewform?usp=sf_link" %}
+        {% endif %}
         <div id="content">
             <h1>{% trans %}Services entre particuliers{% endtrans %}</h1>
+            <p class="subtitle">{% trans %}subtitle{% endtrans %}</p>
             <h2>{% trans %}VOUS MANQUEZ DE TEMPS ? <br/> FAITES APPEL À NOS TALENTS ET DÉTENDEZ VOUS !{% endtrans %}</h2>
-            <p>{% trans %}Avant le lancement, partagez nous vos besoins ! (service ou job){% endtrans %}</p>
+            <p class="subtext">{% trans %}subtext{% endtrans %}</p>
+            <p class="before-launch">{% trans %}Avant le lancement, partagez nous vos besoins ! (service ou job){% endtrans %}</p>
             <a id="call-to-action" target="_blank" href="https://docs.google.com/forms/d/e/1FAIpQLSc1R_Fj_mPTB4TEla3ZUmtnELPavJUmqQ-PQiXDlzrAfUCQgw/viewform?usp=sf_link">{% trans %}Mes Besoins!{% endtrans %}</a>
         </div>
     </section>
