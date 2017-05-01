@@ -22,47 +22,7 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        $translator = $this->get('translator');
-        $sent = false;
-
-        $contactForm = $this->get('form.factory')
-        ->createNamedBuilder('contact_form', FormType::class)
-        ->add('name', TextType::class, [
-            'label' => '',
-            'attr' => ['placeholder' => $translator->trans('Nom')]
-        ])
-        ->add('email', EmailType::class, [
-                'label' => '',
-                'attr' => ['placeholder' => $translator->trans('Email')]
-            ]
-        )
-        ->add('message', TextareaType::class, [
-                'label' => '',
-                'attr' => ['placeholder' => 'Message']
-            ]
-        )
-        ->add('send', SubmitType::class, [
-                'label' => $translator->trans('ENVOYER'),
-            ]
-        )->getForm();
-
-        $contactForm->handleRequest($request);
-
-        if ($contactForm->isSubmitted() && $contactForm->isValid()) {
-            // data is an array with "name", "email", and "message" keys
-            $data = $contactForm->getData();
-            $sent = true;
-        }
-
-        if($sent) {
-            $message = \Swift_Message::newInstance()
-                ->setSubject('Contact enquiry from hometalent')
-                ->setFrom($data['email'])
-                ->setTo($this->container->getParameter('contact_email'))
-                ->setBody($this->renderView('default/email.txt.twig', array('data' => $data)));
-            $this->get('mailer')->send($message);
-            $this->redirect('/');
-        }
+        list($sent, $contactForm) = $this->prepareIndex($request);
 
         // replace this example code with whatever you need
         return $this->render('default/index.html.twig', [
@@ -88,5 +48,103 @@ class DefaultController extends Controller
     public function flyerAction()
     {
         return $this->redirect('/');
+    }
+
+    /**
+     * @Route ("/asker", name="index_asker")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function askerAction(Request $request)
+    {
+        list($sent, $contactForm) = $this->prepareIndex($request);
+
+        // replace this example code with whatever you need
+        return $this->render('default/index_asker.html.twig', [
+            'contact_form' => $contactForm->createView(),
+            'sent' => $sent,
+        ]);
+    }
+
+    /**
+     * @Route ("/tasker", name="index_tasker")
+     * @param Request $request
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function taskerAction(Request $request)
+    {
+        list($sent, $contactForm) = $this->prepareIndex($request);
+
+        // replace this example code with whatever you need
+        return $this->render('default/index_tasker.html.twig', [
+            'contact_form' => $contactForm->createView(),
+            'sent' => $sent,
+        ]);
+    }
+
+    /**
+     * @param Request $request
+     * @return array
+     */
+    private function prepareIndex(Request $request)
+    {
+        $translator = $this->get('translator');
+        $sent = false;
+
+        $contactForm = $this->get('form.factory')
+            ->createNamedBuilder('contact_form', FormType::class)
+            ->add(
+                'name',
+                TextType::class,
+                [
+                    'label' => '',
+                    'attr' => ['placeholder' => $translator->trans('Nom')]
+                ]
+            )
+            ->add(
+                'email',
+                EmailType::class,
+                [
+                    'label' => '',
+                    'attr' => ['placeholder' => $translator->trans('Email')]
+                ]
+            )
+            ->add(
+                'message',
+                TextareaType::class,
+                [
+                    'label' => '',
+                    'attr' => ['placeholder' => 'Message']
+                ]
+            )
+            ->add(
+                'send',
+                SubmitType::class,
+                [
+                    'label' => $translator->trans('ENVOYER'),
+                ]
+            )->getForm();
+
+        $contactForm->handleRequest($request);
+
+        if ($contactForm->isSubmitted() && $contactForm->isValid()) {
+            // data is an array with "name", "email", and "message" keys
+            $data = $contactForm->getData();
+            $sent = true;
+        }
+
+        if ($sent) {
+            $message = \Swift_Message::newInstance()
+                ->setSubject('Contact enquiry from hometalent')
+                ->setFrom($data['email'])
+                ->setTo($this->container->getParameter('contact_email'))
+                ->setBody($this->renderView('default/email.txt.twig', array('data' => $data)));
+            $this->get('mailer')->send($message);
+            $this->redirect('/');
+
+            return array($sent, $contactForm);
+        }
+
+        return array($sent, $contactForm);
     }
 }
